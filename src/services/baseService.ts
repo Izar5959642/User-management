@@ -1,4 +1,4 @@
-import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const BASE_URL = 'https://server-n42x.onrender.com';
 
