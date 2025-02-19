@@ -86,7 +86,7 @@ const UserListPage: React.FC = () => {
         {/* User List Section */}
         <Container maxWidth="md" sx={{ width: "100vw", overflowX: 'hidden' }} >
           <List sx={{
-            maxHeight: "700px",
+            maxHeight: "75vh",
             maxWidth: "80vw",
             overflowY: 'auto',
             overflowX: "none",
@@ -168,6 +168,7 @@ const UserListPage: React.FC = () => {
             <PersonAddIcon sx={{ paddingLeft: "15px" }}> </PersonAddIcon>
           </AddUserButton>
         </Box>
+
       </Box>
     </Box>
   );
