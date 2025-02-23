@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, Typography, CircularProgress } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, Typography, CircularProgress, InputAdornment, IconButton } from "@mui/material";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { StyledBox } from './general.style';
 import { usePopup } from '../hooks/useAddEditPopup';
 
@@ -18,6 +19,7 @@ const AddEditPopup: React.FC<EditUserPopupProps> = ({ user, isEdit, open, onClos
         password, setPassword,
         isLoading,
         submitError,
+        showPassword, setShowPassword,
         handleSubmit
     } = usePopup();
 
@@ -69,12 +71,34 @@ const AddEditPopup: React.FC<EditUserPopupProps> = ({ user, isEdit, open, onClos
                         </TextField>
                         {!isEdit &&
                             <TextField
-                            value={password}
-                            placeholder='password'
-                            onChange={(e) => setPassword(e.target.value)}
-                            margin="normal"
-                            >
-                            </TextField>
+                                label="Password"
+                                type={showPassword ? "text" : "password"}
+                                variant="outlined"
+                                fullWidth
+                                required
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                autoComplete="new-password"
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                              sx={{
+                                                '&:focus': {
+                                                  outline: 'none',
+                                                  border: 'none',
+                                                },
+                                              }}
+                                                aria-label="toggle password visibility"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            />
                         }
                     </StyledBox>
                     {submitError && (

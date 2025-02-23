@@ -12,6 +12,8 @@ export const usePopup = () => {
     const  dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
+
+    const [showPassword, setShowPassword] = useState(false);
     
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement> ,isEdit: boolean , onClose: () => void, user? : User) => {
         e.preventDefault(); 
@@ -57,6 +59,7 @@ export const usePopup = () => {
         setPassword,
         setIsLoading,
         submitError, setSubmitError,
-        handleSubmit
+        handleSubmit,
+        showPassword, setShowPassword
     }
 } 
