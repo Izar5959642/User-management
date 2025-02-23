@@ -10,7 +10,7 @@ const SafeRouter = ({ children }: { children: React.ReactNode }) => {
 const router = createBrowserRouter([
     {
         path: "/",
-        element: < Navigate to='/login' />,
+        element: < Navigate to='/login' replace />,
     },
 
     {
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
 
     {
         path: "/*",
-        element: < Navigate to='/' />,
+        element: < Navigate to='/' replace />,
     },
 ])
 
