@@ -120,8 +120,10 @@ const UserListPage: React.FC = () => {
                   />
                   <Typography variant="body1" component="div">
                     <Typography variant="body2" component="div"></Typography>
+                    <Typography>User Name: {user.username}</Typography>
                     <Typography>Email: {user.email}</Typography>
                     <Typography>Full name: {user.fullName}</Typography>
+
                   </Typography>
                   </Stack>
                 </Box>
