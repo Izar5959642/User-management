@@ -17,6 +17,7 @@ export const useLogin = () => {
             const {res, err} = await loginService({username,password})
             if (res){
                 localStorage.setItem("token", res?.data.token);
+                localStorage.setItem("adminName", username);
                 dispatch(
                     setAdminFromServer({                       
                         _id: res.data._id,

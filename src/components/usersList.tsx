@@ -47,17 +47,20 @@ const UserListPage: React.FC = () => {
   return (
     <Box sx={{ height: '90vh', display: 'flex', flexDirection: 'column', overflowY: 'hidden' }}>
       {/* Top Bar */}
-      <AppBar position="fixed" sx={{ zIndex: 1201, justifyContent: "space-between" }} >
+      <AppBar position="fixed" sx={{ zIndex: 1201, justifyContent: "space-between", backgroundColor: '#3f51b5' }} >
         <Toolbar>
-          <Stack sx={{padding: '10px'}}>
-            <Avatar >
-              <PeopleAltIcon></PeopleAltIcon>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Avatar sx={{ bgcolor: blueGrey[500] }}>
+              <PeopleAltIcon />
             </Avatar>
+            <Typography variant="h6" component="div">
+              {adminName}
+            </Typography>
           </Stack>
-             <Typography> {adminName}</Typography> 
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            User Management</Typography>
-          <Button variant="contained" onClick={handleLogout}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
+            User Management
+          </Typography>
+          <Button variant="contained" color="primary" onClick={handleLogout}>
             <LogoutIcon />
           </Button>
         </Toolbar>
@@ -68,33 +71,24 @@ const UserListPage: React.FC = () => {
         sx={{
           flex: 1,
           marginTop: '40px',
-          marginBottom: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
           overflowX: "hidden",
           overflowY: "hidden"
         }}
       >
-
-        {isPopupOpen &&
-          <AddEditPopup
-            user={selectedUser ? selectedUser : emptyUser}
-            isEdit={editPopup}
-            open={isPopupOpen}
-            onClose={handleClosePopup}
-          />
-        }
-
-        {/* User List Section */}
-        <Container maxWidth="md" sx={{ width: "100vw", overflowX: 'hidden' }} >
+        <Container maxWidth="md" sx={{ width: "75vw", overflowX: 'hidden', textAlign: 'center' }}>
           <List sx={{
             maxHeight: "75vh",
-            maxWidth: "80vw",
+            width: "100%",
+            minWidth: "60px",
             overflowY: 'auto',
             overflowX: "none",
 
             "&::-webkit-scrollbar": {
               width: "8px",
-              marginRight: "20px",
-              marginLeft: "50px",
             },
             "&::-webkit-scrollbar-track": {
               background: "#f1f1f1",
@@ -107,50 +101,50 @@ const UserListPage: React.FC = () => {
               background: "#555",
             },
           }}>
-            <Container>
-              {users.map((user) => (
-                <UserItem key={user._id}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
+            {users.map((user) => (
+              <UserItem key={user._id}>
+                <Box
+                  sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingRight: '20px',
                     }}
+                    
                   >
-                    <Stack direction="row" spacing={2}>
-                      <Avatar
-                        sx={{ bgcolor: blueGrey }}
-                        alt={user.username}
-                        src="/broken-image.jpg"
-                      />
-                      <Typography variant="body1" component="div">
-                        <Typography>User name: {user.username}</Typography>
-                        <Typography>Email: {user.email}</Typography>
-                        <Typography>Full name: {user.fullName}</Typography>
-                      </Typography>
-                    </Stack>
-                  </Box>
+                  <Stack direction="row" spacing={5}> 
+                  <Avatar
+                    sx={{ bgcolor: blueGrey[500] }}
+                    alt={user.username}
+                    src="/broken-image.jpg"
+                  />
+                  <Typography variant="body1" component="div">
+                    <Typography variant="body2" component="div"></Typography>
+                    <Typography>Email: {user.email}</Typography>
+                    <Typography>Full name: {user.fullName}</Typography>
+                  </Typography>
+                  </Stack>
+                </Box>
 
-                  <ButtonGroup variant="contained" aria-label="Basic button group">
-                    <Button
-                      disabled={isLoadingDelete}
-                      startIcon={isLoadingDelete && <CircularProgress size={20} />}
-                    >
-                      <DeleteOutlinedIcon
-                        onClick={() => handleDelete(user)}
-                        sx={{ cursor: 'pointer', marginRight: '1' }} />
-                    </Button>
-                    <Button>
-                      <EditIcon
-                        onClick={() => handleEditClicked(user)}
-                        sx={{ cursor: 'pointer', marginRight: '1' }}
-                      />
-                    </Button>
-                  </ButtonGroup>
+                <ButtonGroup variant="contained" aria-label="Basic button group">
+                  <Button
+                    disabled={isLoadingDelete}
+                    startIcon={isLoadingDelete && <CircularProgress size={20} />}
+                  >
+                    <DeleteOutlinedIcon
+                      onClick={() => handleDelete(user)}
+                      sx={{ cursor: 'pointer', marginRight: '1' }} />
+                  </Button>
+                  <Button>
+                    <EditIcon
+                      onClick={() => handleEditClicked(user)}
+                      sx={{ cursor: 'pointer', marginRight: '1' }}
+                    />
+                  </Button>
+                </ButtonGroup>
 
-                </UserItem>
-              ))}
-            </Container>
+              </UserItem>
+            ))}
           </List>
         </Container>
 
@@ -158,6 +152,7 @@ const UserListPage: React.FC = () => {
           display: 'flex',
           width: '100%',
           justifyContent: 'center',
+          marginTop: '20px',
         }}>
           <AddUserButton
             variant="contained"
@@ -168,8 +163,16 @@ const UserListPage: React.FC = () => {
             <PersonAddIcon sx={{ paddingLeft: "15px" }}> </PersonAddIcon>
           </AddUserButton>
         </Box>
-
       </Box>
+
+      {isPopupOpen &&
+        <AddEditPopup
+          user={selectedUser ? selectedUser : emptyUser}
+          isEdit={editPopup}
+          open={isPopupOpen}
+          onClose={handleClosePopup}
+        />
+      }
     </Box>
   );
 };

@@ -20,7 +20,7 @@ export const useUserList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.user.users);
-  const adminName = useSelector((state: RootState) => state.admin.username)
+  const adminName = useSelector((state: RootState) => state.admin.username) || localStorage.getItem("adminName")
   useEffect(() => {
     if (!users.length) setUsersToStore();
   }, [users]);
@@ -38,6 +38,7 @@ export const useUserList = () => {
   const handleLogout = () => {
     navigate('/')
     localStorage.removeItem("token");
+    localStorage.removeItem("adminName"); 
     dispatch(
       setAdminFromServer({
         _id: '',
