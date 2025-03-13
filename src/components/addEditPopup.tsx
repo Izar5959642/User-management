@@ -69,37 +69,37 @@ const AddEditPopup: React.FC<EditUserPopupProps> = ({ user, isEdit, open, onClos
                             margin="normal"
                         >
                         </TextField>
-                        {!isEdit &&
-                            <TextField
-                                label="Password"
-                                type={showPassword ? "text" : "password"}
-                                variant="outlined"
-                                fullWidth
-                                required
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                autoComplete="new-password"
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                              sx={{
-                                                '&:focus': {
-                                                  outline: 'none',
-                                                  border: 'none',
-                                                },
-                                              }}
-                                                aria-label="toggle password visibility"
-                                                onClick={() => setShowPassword(!showPassword)}
-                                                edge="end"
-                                            >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    )
-                                }}
-                            />
-                        }
+                        
+                        <TextField
+                            label="Password"
+                            type={showPassword ? "text" : "password"}
+                            variant="outlined"
+                            fullWidth
+                            required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            autoComplete="new-password"
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            sx={{
+                                            '&:focus': {
+                                                outline: 'none',
+                                                border: 'none',
+                                            },
+                                            }}
+                                            aria-label="toggle password visibility"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            edge="end"
+                                        >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
+                        />
+                        
                     </StyledBox>
                     {submitError && (
                         <Typography color="error" variant="body2" align="center" gutterBottom>

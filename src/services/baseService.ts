@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const BASE_URL = 'https://server-n42x.onrender.com';
-
+const BASE_URL_SERVER = 'http://localhost:8000';
 export interface BaseResponse {
     res: AxiosResponse | null;
     err: Record<string, any> | undefined;
@@ -20,7 +20,7 @@ const baseService = async (
     
     try {
         response.res = await axios ({
-            url: BASE_URL + url,
+            url: BASE_URL_SERVER + url,
             method: method,
             data: data,
             headers: headers || {

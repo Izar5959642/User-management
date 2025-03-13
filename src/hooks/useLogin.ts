@@ -17,11 +17,10 @@ export const useLogin = () => {
             const {res, err} = await loginService({username,password})
             if (res){
                 localStorage.setItem("token", res?.data.token);
-                localStorage.setItem("adminName", username);
                 dispatch(
                     setAdminFromServer({                       
                         _id: res.data._id,
-                        username: username,
+                        username: res.data.username,
                         fullName: res.data.fullName,
                         password: res.data.password,
                         token: res.data.token                       
@@ -29,7 +28,7 @@ export const useLogin = () => {
                 )       
                 navigate('/users')
             }else if(err){
-                 window.alert(err.message + "  ארע שגיאה")
+                window.alert(err.message + "  ארע שגיאה")
                 console.log(err.message, "ארע שגיאה")
             }
         } catch (error){

@@ -1,11 +1,20 @@
 import { useNavigate } from "react-router";
-import { deleteUserById, getUserList } from "../services/userService";
+import { deleteUserById, getUserById, getUserList } from "../services/userService";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUserStore, setUsers } from "../store/userSlice";
 import { RootState } from "../store/store";
 import { useEffect, useState } from "react";
 import { setAdminFromServer } from "../store/adminSlice";
 import { User } from "../interfaces/userInterface";
+
+import { jwtDecode } from "jwt-decode";
+
+interface DecodedToken {
+  userId: string;
+  iat: number;
+  exp:number;
+}
+
 
 export const useUserList = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -20,10 +29,32 @@ export const useUserList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.user.users);
-  const adminName = useSelector((state: RootState) => state.admin.username) || localStorage.getItem("adminName")
+  const adminName = useSelector((state: RootState) => state.admin.username);
+  
   useEffect(() => {
     if (!users.length) setUsersToStore();
-  }, [users]);
+    setAdminNameTOStore();
+  }, [users,adminName]);
+
+
+  const setAdminNameTOStore = async () => {
+    const token = localStorage.getItem("token")
+    if (token){
+      const decoded: DecodedToken = jwtDecode(token!); 
+      const {res} = await getUserById(decoded.userId);
+      if (res){
+        dispatch(
+          setAdminFromServer({                       
+              _id: res.data._id,
+              username: res.data.username,
+              fullName: res.data.fullName,
+              password: res.data.password,
+              token: res.data.token                       
+          })
+        )
+      } 
+    }
+  }
 
   const setUsersToStore = async () => {
     const { res, err } = await getUserList()
